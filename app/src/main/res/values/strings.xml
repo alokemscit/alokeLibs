@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">My Application</string>
+    <string name="real_face" tools:ignore="ExtraTranslation">Real</string>
+    <string name="fake_face" tools:ignore="ExtraTranslation">Fake</string>
+</resources>
