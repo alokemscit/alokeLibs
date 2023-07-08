@@ -1,0 +1,137 @@
+
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id  'kotlin-android-extensions'
+    id 'maven-publish'
+//    kotlin("multiplatform") version "1.6.10"
+}
+
+
+
+
+
+
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+
+//        externalNativeBuild {
+//            cmake {
+//                cppFlags "-std=c++11 -frtti -fexceptions"
+//                abiFilters 'armeabi-v7a', 'arm64-v8a'
+//                arguments "-DANDROID_ARM_NEON=TRUE"
+//                arguments "-DANDROID_TOOLCHAIN=clang"
+//            }
+//        }
+//
+//
+//        ndk {
+//            abiFilters 'armeabi-v7a','arm64-v8a'
+//        }
+
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    groupId = 'com.aloke.libraries'
+                    artifactId = 'libraries'
+                    version = '1.0'
+
+                    from components.release
+                }
+            }
+        }
+    }
+
+
+//    afterEvaluate {
+//        publishing {
+//            publications {
+//                release(MavenPublication) {
+//                    from components.release
+//
+//                    groupId = 'com.aloke.libraries'
+//                    artifactId = 'v'
+//                    version = '1.0.0'
+//                }
+//
+//                debug(MavenPublication) {
+//                    from components.debug
+//
+//                    groupId = 'com.aloke.libraries'
+//                    artifactId = 'd'
+//                    version = '1.0.0'
+//                }
+//            }
+//        }
+//    }
+
+    buildFeatures {
+        viewBinding true
+    }
+    dataBinding {
+        enabled = true
+    }
+    androidResources {
+        // noCompress 'tflite'
+        noCompress "tflite"
+        noCompress "lite"
+        noCompress "live/config"
+        noCompress "live/model_1"
+        noCompress "live/model_2"
+        noCompress "detection/detection.param"
+    }
+
+
+//
+//    sourceSets {
+//        main {
+//            //jniLibs.srcDirs = ['src/main/jni/engine']  // libs
+//            jniLibs.srcDirs = ['libs']
+//            assets.srcDirs = ['assets', 'src\\main\\assets']
+//        }
+//    }
+
+}
+
+dependencies {
+
+    api "androidx.appcompat:appcompat:1.2.0"
+
+    implementation "androidx.exifinterface:exifinterface:1.2.0"
+    implementation('org.tensorflow:tensorflow-lite:0.0.0-nightly') { changing = true }
+   // implementation("org.jetbrains.kotlin.js:org.jetbrains.kotlin.js.gradle.plugin:1.6.10")
+   // implementation  "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+}
